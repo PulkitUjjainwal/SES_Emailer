@@ -11,23 +11,20 @@ app.use(bodyParser.json());
 
 const SES_CONFIG = {
     credentials: {
-        accessKeyId: 'AKIAQUINFHMHTTMZJHS3',
+        accessKeyId: "AKIAQUINFHMHTTMZJHS3",
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     },
     region: 'us-west-2',
 };
 
 const AWS_SES = new AWS.SES(SES_CONFIG);
-// console.log(AWS_SES);
-
-
 
 const sendEmail = async (firstName, lastName, countryCode, contactNumber, workEmail, message) => {
     const fullContactNumber = `${countryCode} ${contactNumber}`;
     const params = {
         Source: 'kawanpreet@exportgenius.in',
         Destination: {
-            ToAddresses: ['marketing@indiatradedata.com' ], // Fixed recipient email
+            ToAddresses: ['marketing@indiatradedata.com'], // Fixed recipient email
         },
         Message: {
             Subject: {
@@ -38,16 +35,49 @@ const sendEmail = async (firstName, lastName, countryCode, contactNumber, workEm
                 Html: {
                     Charset: 'UTF-8',
                     Data: `
+                        <!DOCTYPE html>
                         <html>
-                        <body style="font-family: Arial, sans-serif; line-height: 1.6;">
-                            <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-                                <h2 style="background-color: #4CAF50; color: white; padding: 10px; text-align: center; border-radius: 10px 10px 0 0;">Contact Us Form Submission</h2>
-                                <p style="color: #333;"><strong>First Name:</strong> ${firstName}</p>
-                                <p style="color: #333;"><strong>Last Name:</strong> ${lastName}</p>
-                                <p style="color: #333;"><strong>Contact Number:</strong> ${fullContactNumber}</p>
-                                <p style="color: #333;"><strong>Work Email:</strong> ${workEmail}</p>
-                                <p style="color: #333;"><strong>Message:</strong></p>
-                                <p style="background-color: #f9f9f9; padding: 15px; border-radius: 5px;">${message}</p>
+                        <head>
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    line-height: 1.6;
+                                }
+                                .container {
+                                    max-width: 600px;
+                                    margin: 0 auto;
+                                    padding: 20px;
+                                    border: 1px solid #ddd;
+                                    border-radius: 10px;
+                                }
+                                .header {
+                                    background-color: #4CAF50;
+                                    color: white;
+                                    padding: 10px;
+                                    text-align: center;
+                                    border-radius: 10px 10px 0 0;
+                                }
+                                .content {
+                                    color: #333;
+                                }
+                                .message {
+                                    background-color: #f9f9f9;
+                                    padding: 15px;
+                                    border-radius: 5px;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="container">
+                                <h2 class="header">Contact Us Form Submission</h2>
+                                <div class="content">
+                                    <p><strong>First Name:</strong> ${firstName}</p>
+                                    <p><strong>Last Name:</strong> ${lastName}</p>
+                                    <p><strong>Contact Number:</strong> ${fullContactNumber}</p>
+                                    <p><strong>Work Email:</strong> ${workEmail}</p>
+                                    <p><strong>Message:</strong></p>
+                                    <div class="message">${message}</div>
+                                </div>
                             </div>
                         </body>
                         </html>
