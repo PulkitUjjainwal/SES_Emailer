@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 const SES_CONFIG = {
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY,
+        accessKeyId: "AKIAW3MD676M3SK7IRWP",
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     },
     region: 'ap-south-1',
