@@ -11,19 +11,23 @@ app.use(bodyParser.json());
 
 const SES_CONFIG = {
     credentials: {
-        accessKeyId: "AKIAW3MD676M3SK7IRWP",
+        accessKeyId: 'AKIAQUINFHMHTTMZJHS3',
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     },
-    region: 'ap-south-1',
+    region: 'us-west-2',
 };
 
 const AWS_SES = new AWS.SES(SES_CONFIG);
+// console.log(AWS_SES);
 
-const sendEmail = async (recipientEmail, firstName, lastName, contactNumber, workEmail, message) => {
+
+
+const sendEmail = async (firstName, lastName, countryCode, contactNumber, workEmail, message) => {
+    const fullContactNumber = `${countryCode} ${contactNumber}`;
     const params = {
-        Source: 'pulkitnov2@gmail.com',
+        Source: 'kawanpreet@exportgenius.in',
         Destination: {
-            ToAddresses: [recipientEmail],
+            ToAddresses: ['marketing@indiatradedata.com' ], // Fixed recipient email
         },
         Message: {
             Subject: {
@@ -40,7 +44,7 @@ const sendEmail = async (recipientEmail, firstName, lastName, contactNumber, wor
                                 <h2 style="background-color: #4CAF50; color: white; padding: 10px; text-align: center; border-radius: 10px 10px 0 0;">Contact Us Form Submission</h2>
                                 <p style="color: #333;"><strong>First Name:</strong> ${firstName}</p>
                                 <p style="color: #333;"><strong>Last Name:</strong> ${lastName}</p>
-                                <p style="color: #333;"><strong>Contact Number:</strong> ${contactNumber}</p>
+                                <p style="color: #333;"><strong>Contact Number:</strong> ${fullContactNumber}</p>
                                 <p style="color: #333;"><strong>Work Email:</strong> ${workEmail}</p>
                                 <p style="color: #333;"><strong>Message:</strong></p>
                                 <p style="background-color: #f9f9f9; padding: 15px; border-radius: 5px;">${message}</p>
@@ -54,7 +58,7 @@ const sendEmail = async (recipientEmail, firstName, lastName, contactNumber, wor
                     Data: `
                         First Name: ${firstName}\n
                         Last Name: ${lastName}\n
-                        Contact Number: ${contactNumber}\n
+                        Contact Number: ${fullContactNumber}\n
                         Work Email: ${workEmail}\n
                         Message:\n
                         ${message}
@@ -75,14 +79,14 @@ const sendEmail = async (recipientEmail, firstName, lastName, contactNumber, wor
 };
 
 app.post('/send-email', async (req, res) => {
-    const { recipientEmail, firstName, lastName, contactNumber, workEmail, message } = req.body;
+    const { firstName, lastName, countryCode, contactNumber, workEmail, message } = req.body;
 
-    if (!recipientEmail || !firstName || !lastName || !contactNumber || !workEmail || !message) {
+    if (!firstName || !lastName || !countryCode || !contactNumber || !workEmail || !message) {
         return res.status(400).send({ message: 'All fields are required' });
     }
 
     try {
-        const response = await sendEmail(recipientEmail, firstName, lastName, contactNumber, workEmail, message);
+        const response = await sendEmail(firstName, lastName, countryCode, contactNumber, workEmail, message);
         res.status(200).send({ message: 'Email has been sent successfully', response });
     } catch (error) {
         res.status(500).send({ message: 'Error sending email', error: error.message });
