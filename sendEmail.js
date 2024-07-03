@@ -25,9 +25,9 @@ const AWS_SES = new AWS.SES(SES_CONFIG);
 const sendEmail = async (firstName, lastName, countryCode, contactNumber, workEmail, message) => {
     const fullContactNumber = `${countryCode} ${contactNumber}`;
     const params = {
-        Source: 'no-reply@marketinsidedata.com',
+        Source: 'no-reply@marketinsidedata.com', // senders Email
         Destination: {
-            ToAddresses: ['minfo@logisticgenius.com','aman@marketinsisdedata.com'], // Fixed recipient email
+            ToAddresses: ['aman@marketinsisdedata.com'], // Fixed recipient email
         },
         Message: {
             Subject: {
@@ -113,7 +113,7 @@ const sendEmail = async (firstName, lastName, countryCode, contactNumber, workEm
 
 const sendThankYouEmail = async (firstName, lastName, workEmail) => {
     const params = {
-        Source: 'no-reply@marketinsidedata.com',
+        Source: 'no-reply@marketinsidedata.com', // senders Email
         Destination: {
             ToAddresses: [workEmail], // Send to the user's email
         },
