@@ -1,6 +1,6 @@
 const AWS_SES = require('../config/awsConfig');
 
-const sendEmailMi = async (firstName, lastName, countryCode, contactNumber, workEmail, message) => {
+const sendEmailMi = async (firstName, lastName, countryCode, contactNumber, workEmail, message , url) => {
     const fullContactNumber = `${countryCode} ${contactNumber}`;
     const params = {
         Source: 'no-reply@marketinsidedata.com', // senders Email
@@ -56,6 +56,7 @@ const sendEmailMi = async (firstName, lastName, countryCode, contactNumber, work
                                     <p><strong>Last Name:</strong> ${lastName}</p>
                                     <p><strong>Contact Number:</strong> ${fullContactNumber}</p>
                                     <p><strong>Work Email:</strong> ${workEmail}</p>
+                                    <p><strong>URL:</strong> <a href="${url}">${url}</a></p>
                                     <p><strong>Message:</strong></p>
                                     <div class="message">${message}</div>
                                 </div>
@@ -71,6 +72,7 @@ const sendEmailMi = async (firstName, lastName, countryCode, contactNumber, work
                         Last Name: ${lastName}\n
                         Contact Number: ${fullContactNumber}\n
                         Work Email: ${workEmail}\n
+                        URL: ${url}\n
                         Message:\n
                         ${message}
                     `,
@@ -87,7 +89,7 @@ const sendEmailMi = async (firstName, lastName, countryCode, contactNumber, work
         console.error('Error sending email:', error.message);
         throw error;
     }
-};
+};  
 
 const sendThankYouEmailMi = async (firstName, lastName, workEmail) => {
     const params = {
@@ -175,12 +177,12 @@ const sendThankYouEmailMi = async (firstName, lastName, workEmail) => {
 
 
 
-const sendEmailEg = async (firstName, lastName, countryCode, contactNumber, workEmail, message) => {
+const sendEmailEg = async (firstName, lastName, countryCode, contactNumber, workEmail, message , url) => {
     const fullContactNumber = `${countryCode} ${contactNumber}`;
     const params = {
         Source: 'no-reply@marketinsidedata.com', // senders Email
         Destination: {
-            ToAddresses: ['pulkit.ujjainwal.ug20@nsut.ac.in'], // Fixed recipient email
+            ToAddresses: [''], // Fixed recipient email
         },
         Message: {
             Subject: {
@@ -231,6 +233,7 @@ const sendEmailEg = async (firstName, lastName, countryCode, contactNumber, work
                                     <p><strong>Last Name:</strong> ${lastName}</p>
                                     <p><strong>Contact Number:</strong> ${fullContactNumber}</p>
                                     <p><strong>Work Email:</strong> ${workEmail}</p>
+                                    <p><strong>URL:</strong> <a href="${url}">${url}</a></p>
                                     <p><strong>Message:</strong></p>
                                     <div class="message">${message}</div>
                                 </div>
@@ -246,6 +249,7 @@ const sendEmailEg = async (firstName, lastName, countryCode, contactNumber, work
                         Last Name: ${lastName}\n
                         Contact Number: ${fullContactNumber}\n
                         Work Email: ${workEmail}\n
+                        URL: ${url}\n
                         Message:\n
                         ${message}
                     `,
