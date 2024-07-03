@@ -27,7 +27,7 @@ const sendEmail = async (firstName, lastName, countryCode, contactNumber, workEm
     const params = {
         Source: 'no-reply@marketinsidedata.com', // senders Email
         Destination: {
-            ToAddresses: ['aman@marketinsisdedata.com'], // Fixed recipient email
+            ToAddresses: ['keshav.rct@exportgenius.in'], // Fixed recipient email
         },
         Message: {
             Subject: {
