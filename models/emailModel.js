@@ -14,7 +14,7 @@ const sendEmailMi = async (
     const params = {
       Source: "no-reply@marketinsidedata.com", // senders Email
       Destination: {
-        ToAddresses: ["pulkit.ujjainwal.ug20@nsut.ac.in"], // Fixed recipient email
+        ToAddresses: ["aman@marketinsidedata.com"], // Fixed recipient email
       },
       Message: {
         Subject: {
