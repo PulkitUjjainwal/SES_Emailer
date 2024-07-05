@@ -26,9 +26,10 @@ const sendEmailsEg = async (req, res) => {
     }
 
     try {
-        const response = await sendEmailEg(firstName, lastName, countryCode, contactNumber, workEmail, message, url);
+        const ip = requestIp.getClientIp(req);
+        const response = await sendEmailEg(firstName, lastName, countryCode, contactNumber, workEmail, message, url , ip);
         await sendThankYouEmailEg(firstName, lastName, workEmail);
-        res.status(200).send({ message: 'Emails have been sent successfully', response });
+        res.status(200).send({ message: 'Emails have been sent successfully', response , ip});
     } catch (error) {
         res.status(500).send({ message: 'Error sending email', error: error.message });
     }
