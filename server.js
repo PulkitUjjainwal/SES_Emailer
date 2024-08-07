@@ -7,7 +7,7 @@ const emailRoutes = require('./routes/emailRoutes');
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3003;
+const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
